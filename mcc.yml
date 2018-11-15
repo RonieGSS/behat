@@ -1,0 +1,36 @@
+---
+schema_version: v1.1.0
+timezone: Asia/Tokyo
+widgets:
+  - id: behat
+    type: menu
+    title: BEHAT TOOLS
+    content:
+      - category: behat
+        name: Behat Exec
+        description: Execute behat command
+        command: ops/bin/exec
+      - category: behat
+        name: Behat Init
+        description: Initialize behat
+        command: ops/bin/behat_init
+      - category: behat
+        name: Behat Append
+        description: Append behat dependencies
+        command: ops/bin/behat_append
+      - category: behat
+        name: Test Behat
+        description: Test behat
+        command: ops/bin/test
+   
+layout:
+  - name: DASHBOARD
+    rows:
+      - height: 100%
+        cols:
+          - width: 6
+            stacks:
+              - id: behat
+                height: 100% 
+
+

@@ -1,0 +1,14 @@
+#! /bin/bash
+
+cd `dirname $0`/../../
+behat_root=$(pwd)
+behat_src='src/behat'
+behat="docker run -it --rm -v ${behat_root}/${behat_src}:/src hxhroniegss/behat"
+
+echo "
+= = = = = = = = = = = = = = = = = = = 
+	Running behat execution ...
+= = = = = = = = = = = = = = = = = = = 
+"
+
+$behat

@@ -1,0 +1,74 @@
+#! /bin/bash
+echo '
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+                              Infra Commands
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+                Select from the following set of commands:
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                                DESCRIPTIONS
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1) Terraform Init           => Initialize terraform
+2) Terraform Plan           => Check cloud resources
+3) Terraform Apply          => Apply all resources
+4) Production Migration/Acl => Runs production db migration and acl update
+5) Production DB Connect    => Connect to Production RDS instance
+6) Rollback                 => Rollback to previous or even latest version
+7) Production Deployment    => Deploy latest image to production ecs
+8) Back                     => Return to bin/gss panel
+9) Quit                     => Close the panel
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+'
+PS3='Please enter the number of your choice: '
+infra[0]="Terraform Init"
+infra[1]="Terraform Plan"
+infra[2]="Terraform Apply"
+infra[3]="Production Migration/Acl"
+infra[4]="Production DB Connect"
+infra[5]="Rollback"
+infra[6]="Production Deployment"
+infra[7]="Back"
+infra[8]="Quit"
+cd `dirname $0`/../../
+select opt in "${infra[@]}"
+do
+    case $opt in
+        "Terraform Init")
+            bash ops/terraform/bin/init
+            break
+            ;;
+        "Terraform Plan")
+            bash ops/terraform/bin/plan
+            break
+            ;;
+        "Terraform Apply")
+            bash ops/terraform/bin/apply
+            break
+            ;;
+        "Production Migration/Acl")
+            bash ops/aws/bin/production_db_migration_acl
+            break
+            ;;
+        "Production DB Connect")
+            bash ops/aws/bin/production_db_connect
+            break
+            ;;
+        "Rollback")
+            bash ops/aws/bin/rollback
+            break
+            ;;
+        "Production Deployment")
+            bash ops/ecs-deploy/bin/prod_deploy
+            break
+            ;;
+        "Back")
+            bash bin/gss
+            break
+            ;;
+        "Quit")
+            break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
